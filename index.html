@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+
+        #b,
+        #l,
+        #bp,
+        #lp {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="" onsubmit="event.preventDefault()">
+        <label for="profit">Expected profit:</label>
+        <input type="number" id="profit" step="any"><br>
+
+        <label for="entry">Entry:</label>
+        <input type="number" id="entry" step="any"><br>
+
+        <label for="exit">Exit:</label>
+        <input type="number" id="exit" step="any"><br>
+
+        <button onclick="down()">Down</button>
+        <button onclick="up()">Up</button>
+        <p>Input in Back field <span id="b">_</span> to get <span id="bp">_</span></p>
+        <p>Input in Lay field <span id="l">_</span> to wase <span id="lp">_</span></p>
+    </form>
+
+    <script>
+        function down() {
+            const p = parseFloat(document.getElementById("profit").value);
+            const a = parseFloat(document.getElementById("entry").value);
+            const b = parseFloat(document.getElementById("exit").value);
+            const c = 1 / b;
+            const d = p * a;
+            const e = c * a;
+            const f = e * p;
+            const g = f + d;
+            const h = e - 1;
+
+            if (h !== 0) {
+                let y = g / h;
+                let z = (y - p) * c;
+                let x = y / a;
+
+                document.getElementById("b").innerHTML = x;
+                document.getElementById("bp").innerHTML = x * a;
+                document.getElementById("l").innerHTML = z;
+                document.getElementById("lp").innerHTML = y - p;
+            } else {
+                document.write("Error: Division by zero");
+            }
+        }
+
+        function up() {
+            const p = parseFloat(document.getElementById("profit").value);
+            const a = parseFloat(document.getElementById("entry").value);
+            const b = parseFloat(document.getElementById("exit").value);
+            const c = 1 / a;
+            const d = p * c;
+            const e = p * b * c;
+            const f = b * c;
+            const g = d + e;
+            const h = f - 1;
+            if (h !== 0) {
+                let y = g / h;
+                let z = (y - p) * b;
+                // let x = y / a;
+                document.getElementById("b").innerHTML = y - p;
+                document.getElementById("l").innerHTML = y;
+                document.getElementById("bp").innerHTML = z;
+                document.getElementById("lp").innerHTML = y / c;
+
+            } else {
+                document.write("Error: Division by zero");
+            }
+        }
+    </script>
+</body>
+
+</html>
